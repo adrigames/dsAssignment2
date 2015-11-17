@@ -1,0 +1,25 @@
+
+spec DLIST[NATURAL]
+ genres dlist, position, natural
+ operations
+	insert: dlist position natural -> dlist
+	extract: dlist postion -> natural
+	swap: dlist -> dlist
+	empty: dlist -> boolean
+	makenull: dlist -> dlist
+	list: dlist -> natural[]
+	cut: dlist position -> dlist
+endspec
+
+
+
+spec DCLIST[NATURAL]
+ genres dclist, position, natural
+ operations
+	insert: dclist position natural -> dclist
+	extract: dclist position -> natural
+	swap: dclist -> dclist
+	makenull: dclist -> dclist
+	list: dclist -> natural[]
+	cur: dclist position -> dclist
+endspec
