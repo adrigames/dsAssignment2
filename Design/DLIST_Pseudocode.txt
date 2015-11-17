@@ -21,7 +21,7 @@ class dlist:
   public position getLast()
 endclass
 
-public void insert(p:position, n:natural)
+public void dlist::insert(p:position, n:natural)
 	aux:position
 	aux^.value := n						{Prepare new cell}
 	if p = null then					{Check if the position is valid}
@@ -34,13 +34,71 @@ public void insert(p:position, n:natural)
 	if this.last = null then this.last := aux
 endmethod
 
-public natural extract(p:position)
+public natural dlist::extract(p:position)
 	aux: natural
-	if p = null then error("Invalid position selected.")
+	if p = null then error("Invalid position selected.")	{Check for null to throw error}
 	
-	aux := p^.value
-	p^.next^.previous = p^.previous
+	aux := p^.value						{Get value in p}
+	p^.next^.previous = p^.previous				{Extract p}
 	p^previous^.next = p^.next
-	dispose(p)
+	dispose(p)						{Free p}
+	return aux						{Return value}
+endmethod
+
+public void dlist::swap()
+	{Invert the value of swapped}
+	if this.swapped then this.swapped = false
+	else this.swapped = true
+endmethod
+
+public void dlist::makenull()
+	while not this.empty()
+		this.extract(this.head)
+	endwhile
+endmethod
+
+public boolean dlist::empty()
+	return head = last = null
+endmethod
+
+public boolean dlist::isSwapped()
+	return swapped
+endmethod
+
+public natural[] dlist::list()
+	if this.empty then return null
+	aux: natural[]
+	aux2: position
+	iterator: integer
+	aux2:=this.head
+	iterator := 0
+	
+	while not aux2 = null			{Iterate through list}
+		aux[iterator] := aux2^.value	
+		aux2 := aux2^.next
+		iterator := iterator + 1
+	endwhile
+	
 	return aux
 endmethod
+
+public void cut(p:position)
+	aux, aux2: position
+	if p = null then error("Position could not be found.")
+	last:= p^.previous
+	aux := p
+	
+	while aux != null
+		aux2 := aux^.next
+		dispose(aux)
+		aux := aux2
+	endwhile
+endmethod
+
+public position getHead()
+	return this.head
+endmethod
+
+public position getLast()
+	return this.last
+endmethop

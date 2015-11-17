@@ -9,6 +9,7 @@ spec DLIST[NATURAL]
 	makenull: dlist -> dlist
 	list: dlist -> natural[]
 	cut: dlist position -> dlist
+	locate: dlist natural -> position
 endspec
 
 
@@ -22,4 +23,5 @@ spec DCLIST[NATURAL]
 	makenull: dclist -> dclist
 	list: dclist -> natural[]
 	cur: dclist position -> dclist
+	locate: dclist natural -> position
 endspec
