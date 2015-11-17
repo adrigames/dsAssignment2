@@ -1,4 +1,3 @@
-
 celltype = register
  value : natural
  next, previous: ^celltype
@@ -6,7 +5,7 @@ endregister
 
 position = ^celltype
 
-class dlist:
+class dclist:
   private head, last: position
   private swapped: boolean
   public void insert(p:position, n:natural)
@@ -21,7 +20,7 @@ class dlist:
   public position getLast()
 endclass
 
-public void dlist::insert(p:position, n:natural)
+public void dclist::insert(p:position, n:natural)
 	aux:position
 	aux^.value := n						{Prepare new cell}
 	if p = null then					{Check if the position is valid}
@@ -34,7 +33,7 @@ public void dlist::insert(p:position, n:natural)
 	if this.last = null or not this.swapped then this.last := aux
 endmethod
 
-public natural dlist::extract(p:position)
+public natural dclist::extract(p:position)
 	aux: natural
 	if p = null then error("Invalid position selected.")	{Check for null to throw error}
 	
@@ -47,27 +46,27 @@ public natural dlist::extract(p:position)
 	return aux						{Return value}
 endmethod
 
-public void dlist::swap()
+public void dclist::swap()
 	{Invert the value of swapped}
 	if this.swapped then this.swapped = false
 	else this.swapped = true
 endmethod
 
-public void dlist::makenull()
+public void dclist::makenull()
 	while not this.empty()
 		this.extract(this.head)
 	endwhile
 endmethod
 
-public boolean dlist::empty()
+public boolean dclist::empty()
 	return head = last = null
 endmethod
 
-public boolean dlist::isSwapped()
+public boolean dclist::isSwapped()
 	return swapped
 endmethod
 
-public natural[] dlist::list()
+public natural[] dclist::list()
 	if this.empty then return null
 	aux: natural[]
 	aux2: position
@@ -75,7 +74,10 @@ public natural[] dlist::list()
 	aux2:=this.head
 	iterator := 0
 	
-	while not aux2 = null			{Iterate through list}
+	aux[iterator] := aux2^.value
+	aux2 := aux2^.next
+	iterator := iterator + 1
+	while not aux2 = head				{Iterate through list}
 		aux[iterator] := aux2^.value	
 		aux2 := aux2^.next
 		iterator := iterator + 1
@@ -84,23 +86,23 @@ public natural[] dlist::list()
 	return aux
 endmethod
 
-public void cut(p:position)
+public void dclist::cut(p:position)
 	aux, aux2: position
 	if p = null then error("Position could not be found.")
 	last:= p^.previous
 	aux := p
 	
-	while aux != null
+	while aux != this.head
 		aux2 := aux^.next
 		dispose(aux)
 		aux := aux2
 	endwhile
 endmethod
 
-public position getHead()
+public position dclist::getHead()
 	return this.head
 endmethod
 
-public position getLast()
+public position dclist::getLast()
 	return this.last
-endmethod
+endmethop
