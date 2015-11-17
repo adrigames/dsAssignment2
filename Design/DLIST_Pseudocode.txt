@@ -1,0 +1,46 @@
+
+celltype = register
+ value : natural
+ next, previous: ^celltype
+endregister
+
+position = ^celltype
+
+class dlist:
+  private head, last: position
+  private swapped: boolean
+  public void insert(p:position, n:natural)
+  public natural extract(p: position)
+  public void swap()
+  public void makenull()
+  public boolean empty()
+  public boolean isSwapped()
+  public natural[] list()
+  public void cut(p:position)
+  public position getHead()
+  public position getLast()
+endclass
+
+public void insert(p:position, n:natural)
+	aux:position
+	aux^.value := n						{Prepare new cell}
+	if p = null then					{Check if the position is valid}
+		error("Selected position does not exist!")	{If not, throw error}
+	
+	aux^.next := p						{Get position after the one we are inserting}
+	aux^.previous := p^.previous				{Get position before the one in which we are inserting}
+	p^.previous = aux					{Link p to aux}
+	if this.head = null then this.head := aux		{Correct anything that may be wrong}
+	if this.last = null then this.last := aux
+endmethod
+
+public natural extract(p:position)
+	aux: natural
+	if p = null then error("Invalid position selected.")
+	
+	aux := p^.value
+	p^.next^.previous = p^.previous
+	p^previous^.next = p^.next
+	dispose(p)
+	return aux
+endmethod
