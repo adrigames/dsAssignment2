@@ -7,7 +7,7 @@ spec DLIST[NATURAL]
 	swap: dlist -> dlist
 	empty: dlist -> boolean
 	makenull: dlist -> dlist
-	list: dlist -> natural[]
+	list: dlist -> string
 	cut: dlist position -> dlist
 	locate: dlist natural -> position
 endspec
@@ -21,7 +21,7 @@ spec DCLIST[NATURAL]
 	extract: dclist position -> natural
 	swap: dclist -> dclist
 	makenull: dclist -> dclist
-	list: dclist -> natural[]
+	list: dclist -> string
 	cur: dclist position -> dclist
 	locate: dclist natural -> position
 endspec
