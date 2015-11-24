@@ -77,7 +77,7 @@ public natural[] dclist::list()
 	aux[iterator] := aux2^.value
 	aux2 := aux2^.next
 	iterator := iterator + 1
-	while not aux2 = head				g{Iterate through list}
+	while not aux2 = head				 {Iterate through list}
 		aux[iterator] := aux2^.value	
 		aux2 := aux2^.next
 		iterator := iterator + 1

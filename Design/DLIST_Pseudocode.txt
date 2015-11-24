@@ -9,13 +9,14 @@ position = ^celltype
 class dlist:
   private head, last: position
   private swapped: boolean
+  private int[] makeList()
   public void insert(p:position, n:natural)
   public natural extract(p: position)
   public void swap()
   public void makenull()
   public boolean empty()
   public boolean isSwapped()
-  public natural[] list()
+  public string list()
   public void cut(p:position)
   public position getHead()
   public position getLast()
@@ -67,7 +68,7 @@ public boolean dlist::isSwapped()
 	return swapped
 endmethod
 
-public natural[] dlist::list()
+private natural[] dlist::makeList()
 	if this.empty then return null
 	aux: natural[]
 	aux2: position

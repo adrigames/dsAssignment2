@@ -92,5 +92,11 @@
   </Settings>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
+    <File Name="DList.hpp"/>
+    <File Name="DList.cpp"/>
+    <File Name="celltype.hpp"/>
+    <File Name="celltype.cpp"/>
+    <File Name="DCList.hpp"/>
+    <File Name="DCList.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
