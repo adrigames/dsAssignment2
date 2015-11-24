@@ -98,5 +98,7 @@
     <File Name="celltype.cpp"/>
     <File Name="DCList.hpp"/>
     <File Name="DCList.cpp"/>
+    <File Name="IOHandler.hpp"/>
+    <File Name="IOHandler.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
