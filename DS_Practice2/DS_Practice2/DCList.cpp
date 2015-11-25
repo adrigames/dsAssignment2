@@ -168,20 +168,21 @@ celltype* DCList::locate(int value)
 void DCList::cut(int value)
 {
     celltype* aux = this->locate(value);
+    this->last->setNext(NULL);
     this->last = aux->getPrevious();
-    this->last->setNext(this->head);
     if (aux == this->head)
     {
         this->makenull();
         return;
         }
-    while(aux!= this->head)
+    while(aux!= NULL)
     {
         celltype* aux2 = aux;
         aux = aux->getNext();
         delete(aux2);
         }
         delete(aux);
+        this->last->setNext(this->head);
     }
 
 celltype* DCList::getHead()
