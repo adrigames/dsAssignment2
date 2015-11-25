@@ -49,8 +49,25 @@ void IOHandler::load(DList* odd, DCList* even)
                 aux = 0;
             else
                 {
-                    this->processNumber(aux);
+                    this->processNumber(aux, odd, even);
                     }
             }
+        }
+    }
+
+void IOHandler::processNumber(int value, DList* odd, DCList* even)
+{
+    if (value<0)                        //Check if value is negative
+        {
+            odd->swap();                //Swap odd list's insertion and deletion points
+            even->swap();               //Swap even list's insertion and deletion points
+            }
+    else if (value%2 == 0)              //Check if number is even
+    {
+        even->insert(value);            //Insert in even list
+        }
+    else                                //Number is odd
+    {
+        odd->insert(value);             //Insert in odd list
         }
     }

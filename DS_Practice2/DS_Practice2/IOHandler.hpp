@@ -15,6 +15,7 @@ public:
     ~IOHandler();
     void save(DList*, DCList*);
     void load(DList*, DCList*);
+    void processNumber(int, DList*, DCList*);
 };
 
 #endif // IOHANDLER_HPP
