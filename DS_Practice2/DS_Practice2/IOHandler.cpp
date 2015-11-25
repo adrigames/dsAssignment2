@@ -45,15 +45,19 @@ void IOHandler::load()
     {
         std::string contents = "";
         std::string line;
+        std::string section;
         while(getline(input, line)){
-                contents += line;
-                line += "\n";
-            }
-        std::istringstream convert(contents);
-        while (!convert.eof())
+        while (line.length() > 0)
         {
+            section = line.substr(0, line.find(','));
+            line.erase(0, line.find(','));
+            if(section.find('.') == ~0U)
+                section = section.substr(0, section.find('.'));
+            std::istringstream convert(section);
             int aux = 0;
-            if(!(convert>>aux))
+            convert>>aux;
+            std::cout<<"Inserting "<<aux<<std::endl;
+            if(convert.fail())
                 aux = 0;
             else
                 {
@@ -61,6 +65,7 @@ void IOHandler::load()
                     }
             }
         }
+    }
     }
 
 void IOHandler::processNumber(int value)
