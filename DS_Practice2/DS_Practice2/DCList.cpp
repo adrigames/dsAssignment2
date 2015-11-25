@@ -1,19 +1,19 @@
 #include "DCList.hpp"
 
-DList::DCList()
+DCList::DCList()
 {
     this->head = NULL;
     this->last = NULL;
     this->swapped = false;
 }
 
-DCList::~DList()
+DCList::~DCList()
 {
 }
 
 void DCList::insert(int value)
 {
-    celltype* aux = new celltype(value, std::NULL, std::NULL);
+    celltype* aux = new celltype(value, NULL, NULL);
     if(!this->empty())
     {
         if(swapped)
@@ -31,13 +31,13 @@ void DCList::insert(int value)
             }
         }
     
-    if (this->head == null){
+    if (this->head == NULL){
         this->head = aux;
         this->head->setPrevious(aux);
         }
-    if (this->last == null){
+    if (this->last == NULL){
         this->last = aux;
-        this->last->setNext(aux)
+        this->last->setNext(aux);
     }
 }
 int DCList::extract()
@@ -66,7 +66,7 @@ int DCList::extract()
 
 void DCList::swap()
 {
-    this->swapped? swap=false : swap=true;
+    this->swapped = !this->swapped;
     }
 
 void DCList::makenull()
@@ -79,7 +79,7 @@ void DCList::makenull()
 
 bool DCList::empty()
 {
-    return this->head == std::NULL && this->last == NULL;
+    return this->head == NULL && this->last == NULL;
     }
 
 bool DCList::isSwapped()
@@ -92,22 +92,23 @@ int DCList::makeList(int *array)
     if (this->empty()) throw std::runtime_error("List is empty!\n");
     int length = 0;
     celltype* aux = this->head;
-    while(aux != std::NULL)
+    while(aux != NULL)
     {
         array[length] = aux->getValue();
         length++;
         aux = aux->getNext();
         }
-    return int;
+    return length;
     }
 
-std::string DCList::list()
+std::string DCList::list(bool inverted)
 {
-    int* values = new int*;
+    int* values = new int[8192];
     int length = this->makeList(values);
     int i = 0;
     std::string result = "";
     std::stringstream stream;
+    if(!inverted){
     for (i=0; i<length; i++)
     {
         stream<<values[i];
@@ -120,6 +121,21 @@ std::string DCList::list()
                 stream<<',';
                 }
         }
+    }
+    else{
+        for(i=length-1; i>=0; i--)
+        {
+            stream<<values[i];
+        if(i==0)
+        {
+            stream<<'.';
+            }
+        else
+            {
+                stream<<',';
+                }
+            }
+    }
         result += stream.str();
         delete(values);
         return result;
@@ -127,15 +143,15 @@ std::string DCList::list()
 
 celltype* DCList::locate(int value)
 {
-    if(this->empty()) return std::NULL;
+    if(this->empty()) return NULL;
     celltype* aux = this->head;
-    if (aux->value == value) 
+    if (aux->getValue() == value) 
         return aux;
     else
         aux = aux->getNext();
     while (aux!= this->head)
     {
-        if (aux->value == value)
+        if (aux->getValue() == value)
         {
             return aux;
             }
@@ -143,7 +159,7 @@ celltype* DCList::locate(int value)
             aux = aux->getNext();
             }
         }
-    return std::NULL;
+    return NULL;
     }
 
 void DCList::cut(int value)

@@ -3,8 +3,9 @@
 
 class celltype
 {
-    int value;
+private:
     celltype* next, *previous;
+    int value;
 public:
     celltype(int, celltype*, celltype*);
     ~celltype();

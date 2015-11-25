@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 #include <exception>
-
+#include <stdlib.h>
 class DList
 {
 private:
@@ -22,7 +22,7 @@ public:
     void makenull(void);
     bool empty(void);
     bool isSwapped(void);
-    std::string list(void);
+    std::string list(bool);
     void cut(int);
     celltype* getHead(void);
     celltype* getLast(void);

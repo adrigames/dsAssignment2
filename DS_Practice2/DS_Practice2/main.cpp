@@ -1,7 +1,10 @@
-#include <stdio.h>
+#include "MainHandler.hpp"
 
 int main(int argc, char **argv)
 {
-	printf("hello world\n");
+	MainHandler* mainLoop = new MainHandler();
+    bool exit = false;
+    while(!exit)
+        mainLoop->drawMenu(&exit);
 	return 0;
 }

@@ -13,7 +13,7 @@ DList::~DList()
 
 void DList::insert(int value)
 {
-    celltype* aux = new celltype(value, std::NULL, std::NULL);
+    celltype* aux = new celltype(value, NULL, NULL);
     if(!this->empty())
     {
         if(swapped)
@@ -30,9 +30,9 @@ void DList::insert(int value)
             }
         }
     
-    if (this->head == null)
+    if (this->head == NULL)
         this->head = aux;
-    if (this->last == null)
+    if (this->last == NULL)
         this->last = aux;
     }
 
@@ -60,7 +60,7 @@ int DList::extract()
 
 void DList::swap()
 {
-    this->swapped? swap=false : swap=true;
+    this->swapped = !this->swapped;
     }
 
 void DList::makenull()
@@ -73,7 +73,7 @@ void DList::makenull()
 
 bool DList::empty()
 {
-    return this->head == std::NULL && this->last == NULL;
+    return this->head == NULL && this->last == NULL;
     }
 
 bool DList::isSwapped()
@@ -86,22 +86,23 @@ int DList::makeList(int *array)
     if (this->empty()) throw std::runtime_error("List is empty!\n");
     int length = 0;
     celltype* aux = this->head;
-    while(aux != std::NULL)
+    while(aux != NULL)
     {
         array[length] = aux->getValue();
         length++;
         aux = aux->getNext();
         }
-    return int;
+    return length;
     }
 
-std::string DList::list()
+std::string DList::list(bool inverted)
 {
-    int* values = new int*;
+    int* values = new int[8192];
     int length = this->makeList(values);
     int i = 0;
     std::string result = "";
     std::stringstream stream;
+    if(!inverted){
     for (i=0; i<length; i++)
     {
         stream<<values[i];
@@ -114,6 +115,21 @@ std::string DList::list()
                 stream<<',';
                 }
         }
+    }
+    else{
+        for(i=length-1; i>=0; i--)
+        {
+            stream<<values[i];
+        if(i==0)
+        {
+            stream<<'.';
+            }
+        else
+            {
+                stream<<',';
+                }
+            }
+    }
         result += stream.str();
         delete(values);
         return result;
@@ -121,11 +137,11 @@ std::string DList::list()
 
 celltype* DList::locate(int value)
 {
-    if(this->empty()) return std::NULL;
+    if(this->empty()) return NULL;
     celltype* aux = this->head;
     while (aux!= NULL)
     {
-        if (aux->value == value)
+        if (aux->getValue() == value)
         {
             break;
             }
@@ -136,11 +152,11 @@ celltype* DList::locate(int value)
     return aux;
     }
 
-public void DList::cut(int value)
+void DList::cut(int value)
 {
     celltype* aux = this->locate(value);
     this->last = aux->getPrevious();
-    while(aux!= std::NULL)
+    while(aux!= NULL)
     {
         celltype* aux2 = aux;
         aux = aux->getNext();

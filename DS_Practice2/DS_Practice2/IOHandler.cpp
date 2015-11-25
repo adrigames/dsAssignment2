@@ -14,9 +14,9 @@ void IOHandler::save()
 {
     std::ofstream output;
     std::string data = "";
-    data += this->odd->list();
+    data += this->odd->list(false);
     data += "\n";
-    data += this->even->list();
+    data += this->even->list(false);
     data += "\n";
     
     output.open("output.numbers.txt");

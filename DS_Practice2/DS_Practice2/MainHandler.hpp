@@ -6,6 +6,8 @@
 #include "IOHandler.hpp"
 #include <iostream>
 #include <windows.h>
+#include <limits>
+#include <exception>
 
 class MainHandler
 {
@@ -14,8 +16,10 @@ private:
     DCList* even;
     IOHandler* io;
     
-    void processInput(int, *bool);
+    void processInput(int, bool*);
+    void processnumber();
     int selectList(void);
+    bool selectOrder(void);
     void showList(void);
     void cutList(int);
     bool confirmExit(void);
