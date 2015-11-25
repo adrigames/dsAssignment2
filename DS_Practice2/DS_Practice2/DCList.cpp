@@ -92,7 +92,10 @@ int DCList::makeList(int *array)
     if (this->empty()) throw std::runtime_error("List is empty!\n");
     int length = 0;
     celltype* aux = this->head;
-    while(aux != NULL)
+    array[length] = this->head->getValue();
+    length++;
+    aux = aux->getNext();
+    while(aux != this->head)
     {
         array[length] = aux->getValue();
         length++;
@@ -178,6 +181,7 @@ void DCList::cut(int value)
         delete(aux2);
         }
         delete(aux);
+        this->last->setNext(NULL);
     }
 
 celltype* DCList::getHead()

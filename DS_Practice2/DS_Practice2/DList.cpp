@@ -163,6 +163,7 @@ void DList::cut(int value)
         delete(aux2);
         }
         delete(aux);
+        this->last->setNext(NULL);
     }
 
 celltype* DList::getHead()

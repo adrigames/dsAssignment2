@@ -49,6 +49,7 @@ void MainHandler::drawMenu(bool* exit)
 void MainHandler::processInput(int option, bool* exit)
 {
     //Once option is captured, process and execute it.
+    unsigned int value = 0;
 {
     switch(option)
     {
@@ -56,7 +57,21 @@ void MainHandler::processInput(int option, bool* exit)
                 break;
         case 2: this->showList();
                 break;
-        case 3: break;
+        case 3: 
+                std::cout<<"Please, enter value from which to cut: ";
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cin>>value;
+                while(std::cin.fail())
+                {
+                    std::cout<<"Invalid value. Please, insert a valid positive number."<<std::endl;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout<<"Please, enter value from which to cut: ";
+                    std::cin>>value;
+                    }
+                this->cutList(value);
+                break;
         case 4: break;
         default: std::cout<<"Invalid option.\nInsert new option."<<std::endl;
         }
@@ -86,7 +101,16 @@ int MainHandler::selectList()
 {
     int retrn = 0;
     std::cout<<"Select a list (1: odd numbers; 2: even numbers): "<<std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin >> retrn;
+    if(std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout<<"ERROR: INVALID INPUT"<<std::endl;
+            return this->selectList();
+            }
     return retrn;
     }
 
@@ -128,4 +152,30 @@ void MainHandler::showList()
         default: this->showList();
         break;
         }
+    }
+
+void MainHandler::cutList(int value)
+{
+    switch(this->selectList())
+    {
+        case 1:
+            if(value % 2 == 0)
+            {
+                std::cout<<"ERROR even value for odd list."<<std::endl;
+                return;
+            }
+            this->odd->cut(value);
+            break;
+        case 2:
+            if(value % 2 != 0)
+            {
+                std::cout<<"ERROR odd value for even list"<<std::endl;
+                return;
+                }
+            this->even->cut(value);
+            break;
+        default: std::cout<<"Invalid option. Please, try again."<<std::endl;
+                    this->cutList(value);
+                    break;
+    }
     }
