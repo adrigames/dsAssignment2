@@ -156,6 +156,11 @@ void DList::cut(int value)
 {
     celltype* aux = this->locate(value);
     this->last = aux->getPrevious();
+    if (aux == this->head)
+    {
+        this->makenull();
+        return;
+        }
     while(aux!= NULL)
     {
         celltype* aux2 = aux;

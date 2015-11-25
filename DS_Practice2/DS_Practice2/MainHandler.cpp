@@ -72,7 +72,8 @@ void MainHandler::processInput(int option, bool* exit)
                     }
                 this->cutList(value);
                 break;
-        case 4: break;
+        case 4: this->Exit(exit);
+                break;
         default: std::cout<<"Invalid option.\nInsert new option."<<std::endl;
         }
     return;
@@ -178,4 +179,28 @@ void MainHandler::cutList(int value)
                     this->cutList(value);
                     break;
     }
+    }
+
+bool MainHandler::confirmExit()
+{
+    char option = ' ';
+    std::cout<<"Are you sure you want to exit? (y/n) ";
+    std::cin>>option;
+    switch(option)
+    {
+        case 'y': case 'Y': return true;
+        case 'n': case 'N': return false;
+        default: std::cout<<"INVALID OPTION. PLEASE, ENTER y(Yes) OR n(No)."<<std::endl;
+                 system("PAUSE");
+                 return confirmExit();
+        }
+    }
+
+void MainHandler::Exit(bool* exit)
+{
+    if(this->confirmExit())
+    {
+        this->io->save();
+        *exit = true;
+        }
     }

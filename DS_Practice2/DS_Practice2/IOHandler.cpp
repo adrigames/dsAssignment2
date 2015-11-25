@@ -14,11 +14,16 @@ void IOHandler::save()
 {
     std::ofstream output;
     std::string data = "";
+    try{
     data += this->odd->list(false);
     data += "\n";
     data += this->even->list(false);
     data += "\n";
-    
+    }catch(std::runtime_error)
+    {
+        std::cout<<"At least one of the lists is empty.\n"\
+                    "The program will try to save existing data."<<std::endl;
+        }
     output.open("output.numbers.txt");
     if(output.is_open())
     {
@@ -38,7 +43,8 @@ void IOHandler::load()
     input.open("input.numbers.txt");
     if(input.is_open())
     {
-        std::string contents = "", line = "";
+        std::string contents = "";
+        std::string line;
         while(getline(input, line)){
                 contents += line;
                 line += "\n";

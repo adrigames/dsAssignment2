@@ -49,16 +49,16 @@ int DCList::extract()
     {
         celltype* aux = this->last;
         value = aux->getValue();
-        aux->setNext(this->last->getNext());
         this->last = this->last->getPrevious();
+        this->last->setNext(this->head);
         delete(aux);
         }
     else
         {
             celltype* aux = this->head;
             value = aux->getValue();
-            aux->setPrevious(this->head->getPrevious());
             this->head = this->head->getNext();
+            this->head->setPrevious(this->last);
             delete(aux);
             }
     return value;
@@ -181,7 +181,7 @@ void DCList::cut(int value)
         delete(aux2);
         }
         delete(aux);
-        this->last->setNext(NULL);
+        this->last->setNext(this->head);
     }
 
 celltype* DCList::getHead()
