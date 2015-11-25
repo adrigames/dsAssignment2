@@ -46,12 +46,15 @@ void IOHandler::load()
         std::string contents = "";
         std::string line;
         std::string section;
-        while(getline(input, line)){
+        while(!input.eof()){
+            getline(input, line);
         while (line.length() > 0)
         {
             section = line.substr(0, line.find(','));
             line.erase(0, line.find(','));
-            if(section.find('.') == ~0U)
+            if(line.find(',') != ~0U)
+                line.erase(0, line.find(',')+1);
+            if(section.find('.') != ~0U)
                 section = section.substr(0, section.find('.'));
             std::istringstream convert(section);
             int aux = 0;
