@@ -10,12 +10,14 @@
 
 class IOHandler
 {
+    DList* odd;
+    DCList* even;
 public:
-    IOHandler();
+    IOHandler(DList*, DCList*);
     ~IOHandler();
-    void save(DList*, DCList*);
-    void load(DList*, DCList*);
-    void processNumber(int, DList*, DCList*);
+    void save();
+    void load();
+    void processNumber(int);
 };
 
 #endif // IOHANDLER_HPP

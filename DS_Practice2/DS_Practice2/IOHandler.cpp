@@ -1,20 +1,22 @@
 #include "IOHandler.hpp"
 
-IOHandler::IOHandler()
+IOHandler::IOHandler(DList* odd, DCList* even)
 {
+    this->odd = odd;
+    this->even = even;
 }
 
 IOHandler::~IOHandler()
 {
 }
 
-void IOHandler::save(DList* odd, DCList* even)
+void IOHandler::save()
 {
     std::ofstream output;
     std::string data = "";
-    data += odd->list();
+    data += this->odd->list();
     data += "\n";
-    data += even->list();
+    data += this->even->list();
     data += "\n";
     
     output.open("output.numbers.txt");
@@ -30,7 +32,7 @@ void IOHandler::save(DList* odd, DCList* even)
         }
     }
     
-void IOHandler::load(DList* odd, DCList* even)
+void IOHandler::load()
 {
     std::ifstream input;
     input.open("input.numbers.txt");
@@ -49,25 +51,25 @@ void IOHandler::load(DList* odd, DCList* even)
                 aux = 0;
             else
                 {
-                    this->processNumber(aux, odd, even);
+                    this->processNumber(aux);
                     }
             }
         }
     }
 
-void IOHandler::processNumber(int value, DList* odd, DCList* even)
+void IOHandler::processNumber(int value)
 {
     if (value<0)                        //Check if value is negative
         {
-            odd->swap();                //Swap odd list's insertion and deletion points
-            even->swap();               //Swap even list's insertion and deletion points
+            this->odd->swap();          //Swap odd list's insertion and deletion points
+            this->even->swap();         //Swap even list's insertion and deletion points
             }
     else if (value%2 == 0)              //Check if number is even
     {
-        even->insert(value);            //Insert in even list
+        this->even->insert(value);      //Insert in even list
         }
     else                                //Number is odd
     {
-        odd->insert(value);             //Insert in odd list
+        this->odd->insert(value);       //Insert in odd list
         }
     }
