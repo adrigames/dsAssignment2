@@ -167,22 +167,22 @@ celltype* DCList::locate(int value)
 
 void DCList::cut(int value)
 {
-    celltype* aux = this->locate(value);
-    this->last->setNext(NULL);
-    this->last = aux->getPrevious();
-    if (aux == this->head)
+    celltype* aux = this->locate(value);        //Look for value
+    this->last->setNext(NULL);                  //Make sure loop finishes
+    this->last = aux->getPrevious();            //Establish new last
+    if (aux == this->head)                      //If everything has to be deleted
     {
-        this->makenull();
+        this->makenull();                       //Call makenull
         return;
         }
-    while(aux!= NULL)
+    while(aux!= NULL)                           //Else, while there are cells left
     {
-        celltype* aux2 = aux;
-        aux = aux->getNext();
-        delete(aux2);
+        celltype* aux2 = aux;                   //Get reference
+        aux = aux->getNext();                   //Move on
+        delete(aux2);                           //Delete last cell
         }
-        delete(aux);
-        this->last->setNext(this->head);
+        delete(aux);                            //At the end, delete last cell
+        this->last->setNext(this->head);        //Make last point to head
     }
 
 celltype* DCList::getHead()
