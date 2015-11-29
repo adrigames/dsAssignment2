@@ -15,10 +15,16 @@ void IOHandler::save()
     std::ofstream output;
     std::string data = "";
     try{
-    data += this->odd->list(false);
-    data += "\n";
-    data += this->even->list(false);
-    data += "\n";
+        data += this->odd->list(false);
+        data += "\n";
+    }catch(std::runtime_error)
+    {
+        std::cout<<"At least one of the lists is empty.\n"\
+                    "The program will try to save existing data."<<std::endl;
+        }
+    try{
+        data += this->even->list(false);
+        data += "\n";
     }catch(std::runtime_error)
     {
         std::cout<<"At least one of the lists is empty.\n"\

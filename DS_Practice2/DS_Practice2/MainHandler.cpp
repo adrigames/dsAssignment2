@@ -102,8 +102,6 @@ int MainHandler::selectList()
 {
     int retrn = 0;
     std::cout<<"Select a list (1: odd numbers; 2: even numbers): "<<std::endl;
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin >> retrn;
     if(std::cin.fail())
         {

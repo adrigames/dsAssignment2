@@ -18,9 +18,14 @@ void DCList::insert(int value)
     {
         if(swapped)
         {
-            this->head->getNext()->setPrevious(aux);
-            aux->setNext(this->head->getNext());
+            if(swapped)
+        {
+            if(this->head->getNext() != NULL){
+                this->head->getNext()->setPrevious(aux);
+                aux->setNext(this->head->getNext());
+            }
             this->head->setNext(aux);
+            }
             }
         else
         {
@@ -71,10 +76,17 @@ void DCList::swap()
 
 void DCList::makenull()
 {
-    while(!this->empty())
+    celltype* aux = this->head;
+    this->last->setNext(NULL);
+    while(aux != this->last)
     {
-        this->extract();
+        celltype* aux2 = aux;
+        aux = aux->getNext();
+        delete(aux2);
         }
+        delete(aux);
+        this->head = NULL;
+        this->last = NULL;
     }
 
 bool DCList::empty()

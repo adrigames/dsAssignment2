@@ -18,8 +18,10 @@ void DList::insert(int value)
     {
         if(swapped)
         {
-            this->head->getNext()->setPrevious(aux);
-            aux->setNext(this->head->getNext());
+            if(this->head->getNext() != NULL){
+                this->head->getNext()->setPrevious(aux);
+                aux->setNext(this->head->getNext());
+            }
             this->head->setNext(aux);
             }
         else

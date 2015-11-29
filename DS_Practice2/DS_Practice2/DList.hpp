@@ -6,6 +6,8 @@
 #include <sstream>
 #include <exception>
 #include <stdlib.h>
+#include <iostream>
+
 class DList
 {
 private:
