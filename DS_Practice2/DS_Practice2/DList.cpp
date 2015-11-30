@@ -1,6 +1,7 @@
 #include "DList.hpp"
 
 DList::DList()
+//Initialize list
 {
     this->head = NULL;
     this->last = NULL;
@@ -13,25 +14,26 @@ DList::~DList()
 
 void DList::insert(int value)
 {
-    celltype* aux = new celltype(value, NULL, NULL);
-    if(!this->empty())
+    celltype* aux = new celltype(value, NULL, NULL);    //New cell
+    if(!this->empty())                                  //If list is not empty
     {
-        if(swapped)
+        if(swapped)                                     //If insertion and deletion are swapped
         {
-            if(this->head->getNext() != NULL){
+            if(this->head->getNext() != NULL){          //Insert after head
                 this->head->getNext()->setPrevious(aux);
                 aux->setNext(this->head->getNext());
             }
-            this->head->setNext(aux);
+            this->head->setNext(aux);                   //Set as next of head
             }
-        else
+        else                                            //If not swapped
         {
-            this->last->setNext(aux);
+            this->last->setNext(aux);                   //Insert after last.
             aux->setPrevious(this->last);
             this->last = aux;
             }
         }
     
+    //If list is empty, set head and last to new cell
     if (this->head == NULL)
         this->head = aux;
     if (this->last == NULL)
@@ -42,17 +44,17 @@ int DList::extract()
 {
     int value = 0;
     if (this->empty())
-        throw std::runtime_error("This list is empty!");
-    if(swapped)
+        throw std::runtime_error("This list is empty!");    //If list is empty, throw error
+    if(swapped)                                             //If list is swapped
     {
-        celltype* aux = this->last;
+        celltype* aux = this->last;                         //Extract the last
         value = aux->getValue();
         this->last = this->last->getPrevious();
         delete(aux);
         }
-    else
+    else                                                    //If not
         {
-            celltype* aux = this->head;
+            celltype* aux = this->head;                     //Extract the head
             value = aux->getValue();
             this->head = this->head->getNext();
             delete(aux);
@@ -62,39 +64,40 @@ int DList::extract()
 
 void DList::swap()
 {
-    this->swapped = !this->swapped;
+    this->swapped = !this->swapped;                         //Swap insertion and deletion points
     }
 
 void DList::makenull()
 {
-    while(!this->empty())
+    while(!this->empty())                                   //While there are elements
     {
-        this->extract();
+        this->extract();                                    //Keep on extracting them
         }
     }
 
 bool DList::empty()
 {
-    return this->head == NULL && this->last == NULL;
+    return this->head == NULL && this->last == NULL;        //Check if both head and last are null
     }
 
 bool DList::isSwapped()
 {
-    return this->swapped;
+    return this->swapped;                                   //Return true if list is swapped
     }
     
 int DList::makeList(int *array)
 {
-    if (this->empty()) throw std::runtime_error("List is empty!\n");
-    int length = 0;
-    celltype* aux = this->head;
-    while(aux != NULL)
+    if (this->empty()) 
+        throw std::runtime_error("List is empty!\n");    //If list is empty, throw error
+    int length = 0;                                      //Register length
+    celltype* aux = this->head;                          //Set starting point to the head
+    while(aux != NULL)                                   //Keep going until the end
     {
-        array[length] = aux->getValue();
-        length++;
-        aux = aux->getNext();
+        array[length] = aux->getValue();                 //Add value to array
+        length++;                                        //Update length
+        aux = aux->getNext();                            //Move to next
         }
-    return length;
+    return length;                                       //Return length of the array
     }
 
 std::string DList::list(bool inverted)
@@ -104,72 +107,76 @@ std::string DList::list(bool inverted)
     int i = 0;
     std::string result = "";
     std::stringstream stream;
-    if(!inverted){
+    if(!inverted){                              //Decide order
     for (i=0; i<length; i++)
     {
-        stream<<values[i];
-        if(i==length-1)
+        stream<<values[i];                      //Insert value
+        if(i==length-1)                         //Check for last
         {
-            stream<<'.';
+            stream<<'.';                        //Insert period
             }
         else
             {
-                stream<<',';
+                stream<<',';                    //Insert comma
                 }
         }
     }
     else{
         for(i=length-1; i>=0; i--)
         {
-            stream<<values[i];
-        if(i==0)
+            stream<<values[i];                  //Insert value
+        if(i==0)                                //Check for last
         {
-            stream<<'.';
+            stream<<'.';                        //Insert period
             }
         else
             {
-                stream<<',';
+                stream<<',';                    //Insert comma
                 }
             }
     }
-        result += stream.str();
-        delete(values);
-        return result;
+        result += stream.str();                 //Make string
+        delete(values);                         //Delete array
+        return result;                          //Return string
     }
 
 celltype* DList::locate(int value)
 {
-    if(this->empty()) return NULL;
+    if(this->empty()) 
+        return NULL;                             //If list is empty, value can't be found          
     celltype* aux = this->head;
-    while (aux!= NULL)
+    while (aux!= NULL)                          //Iterate list
     {
-        if (aux->getValue() == value)
+        if (aux->getValue() == value)           //If value is found
         {
-            break;
+            break;                              //Exit loop
             }
-        else{
-            aux = aux->getNext();
+        else{                                   //If not
+            aux = aux->getNext();               //Move on
             }
         }
-    return aux;
+    return aux;                                 //Return value of aux (NULL if not found)
     }
 
 void DList::cut(int value)
 {
-    celltype* aux = this->locate(value);
-    this->last = aux->getPrevious();
-    if (aux == this->head)
+    celltype* aux = this->locate(value);                //Search value
+    if(aux == NULL){                                    //If value is not found
+        throw std::runtime_error("Value not found!\n"); //throw error
+        }
+    this->last = aux->getPrevious();                    //Set new last
+    if (aux == this->head)                              //If position is head
     {
-        this->makenull();
+        this->makenull();                               //makenull
         return;
         }
-    while(aux!= NULL)
+    while(aux!= NULL)                                   //Else, iterate
     {
-        celltype* aux2 = aux;
+        celltype* aux2 = aux;                           //Delete current position
         aux = aux->getNext();
         delete(aux2);
         }
-        delete(aux);
+        delete(aux);                                    //Delete last position
         this->last->setNext(NULL);
     }
 

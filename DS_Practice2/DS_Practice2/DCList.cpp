@@ -75,6 +75,7 @@ void DCList::swap()
     }
 
 void DCList::makenull()
+//Delete everything
 {
     celltype* aux = this->head;
     this->last->setNext(NULL);
@@ -100,6 +101,7 @@ bool DCList::isSwapped()
     }
     
 int DCList::makeList(int *array)
+//Create integer array with contents, and return length of said array
 {
     if (this->empty()) throw std::runtime_error("List is empty!\n");
     int length = 0;
@@ -117,6 +119,7 @@ int DCList::makeList(int *array)
     }
 
 std::string DCList::list(bool inverted)
+// Create string with contents
 {
     int* values = new int[8192];
     int length = this->makeList(values);
@@ -160,11 +163,11 @@ celltype* DCList::locate(int value)
 {
     if(this->empty()) return NULL;
     celltype* aux = this->head;
-    if (aux->getValue() == value) 
+    if (aux->getValue() == value)                   //Check if value is in first position
         return aux;
     else
         aux = aux->getNext();
-    while (aux!= this->head)
+    while (aux!= this->head)                        //Look in the rest of the list
     {
         if (aux->getValue() == value)
         {
@@ -180,6 +183,9 @@ celltype* DCList::locate(int value)
 void DCList::cut(int value)
 {
     celltype* aux = this->locate(value);        //Look for value
+    if(aux == NULL){                            //Prevent NULL pointer operations
+        throw std::runtime_error("Value not found!\n");
+        }
     this->last->setNext(NULL);                  //Make sure loop finishes
     this->last = aux->getPrevious();            //Establish new last
     if (aux == this->head)                      //If everything has to be deleted

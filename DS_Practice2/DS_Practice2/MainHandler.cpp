@@ -10,7 +10,7 @@ MainHandler::MainHandler()
 
 MainHandler::~MainHandler()         //In case of this object being destroyed
 {
-    if(this->io != NULL)       //Save
+    if(this->io != NULL)            //Save
     {
         this->io->save();
         }
@@ -59,8 +59,6 @@ void MainHandler::processInput(int option, bool* exit)
                 break;
         case 3: 
                 std::cout<<"Please, enter value from which to cut: ";
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cin>>value;
                 while(std::cin.fail())
                 {
@@ -163,7 +161,12 @@ void MainHandler::cutList(int value)
                 std::cout<<"ERROR even value for odd list."<<std::endl;
                 return;
             }
-            this->odd->cut(value);
+            try{
+                this->odd->cut(value);
+            }catch(std::runtime_error r)
+            {
+                std::cout<<"The value could not be found within the list.\n";
+                }
             break;
         case 2:
             if(value % 2 != 0)
@@ -171,7 +174,12 @@ void MainHandler::cutList(int value)
                 std::cout<<"ERROR odd value for even list"<<std::endl;
                 return;
                 }
-            this->even->cut(value);
+            try{
+                this->even->cut(value);
+            }catch(std::runtime_error r)
+            {
+                std::cout<<"The value could not be found within the list.\n";
+                }
             break;
         default: std::cout<<"Invalid option. Please, try again."<<std::endl;
                     this->cutList(value);
